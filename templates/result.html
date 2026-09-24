@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoCrop AI Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+</head>
+
+<body>
+
+<div class="background-overlay"></div>
+
+<div class="container">
+
+<h1 class="dashboard-title">🌱 GeoCrop AI Dashboard</h1>
+
+<div class="result-box">
+
+
+<!-- ============================================================
+     UPLOADED IMAGE
+============================================================ -->
+
+<div class="section">
+    <h2>📷 Uploaded Image</h2>
+    <img src="{{ image_path }}" alt="Uploaded Image">
+</div>
+
+
+<!-- ============================================================
+     IMAGE VALIDATION REPORT
+     Always shown first -- green on success, red on failure.
+     Downstream sections are hidden when validation fails.
+============================================================ -->
+
+<div class="section validation-report-section">
+
+    <h2>🔍 Image Validation Report</h2>
+
+    <!-- Overall status banner at the top of the report -->
+    {% if validation_passed %}
+    <div class="validation-status-banner status-success">
+        <span class="status-icon">&#10003;</span>
+        <span class="status-text">Soil image detected successfully. All checks passed.</span>
+    </div>
+    {% else %}
+    <div class="validation-status-banner status-fail">
+        <span class="status-icon">&#10007;</span>
+        <span class="status-text">
+            {% for line in error_message.split('\n') %}{{ line }}<br>{% endfor %}
+        </span>
+    </div>
+    {% endif %}
+
+    <div class="validation-report">
+
+        <!-- Row 1: Image Uploaded -->
+        <div class="check-row">
+            <span class="check-icon check-pass">&#10003;</span>
+            <div class="check-content">
+                <span class="check-label">Image Uploaded</span>
+                <span class="check-value">
+                    {{ validation_report.filename }}
+                    ({{ validation_report.file_size_kb }} KB)
+                </span>
+            </div>
+        </div>
+
+        <!-- Row 2: Image Resolution -->
+        <div class="check-row">
+            <span class="check-icon check-pass">&#10003;</span>
+            <div class="check-content">
+                <span class="check-label">Image Resolution</span>
+                <span class="check-value">{{ validation_report.resolution }}</span>
+            </div>
+        </div>
+
+        <!-- Row 3: Blur Status -->
+        <div class="check-row {% if validation_report.status_blur == 'WARNING' %}check-row-warn{% elif validation_report.status_blur == 'FAIL' %}check-row-fail{% endif %}">
+            {% if validation_report.status_blur == 'PASS' %}
+                <span class="check-icon check-pass">&#10003;</span>
+            {% elif validation_report.status_blur == 'WARNING' %}
+                <span class="check-icon check-warn">&#9888;</span>
+            {% elif validation_report.status_blur == 'FAIL' %}
+                <span class="check-icon check-fail">&#10007;</span>
+            {% else %}
+                <span class="check-icon check-pending">&#8212;</span>
+            {% endif %}
+            <div class="check-content">
+                <span class="check-label">Blur Check <span style="font-weight:normal;font-size:13px;color:#777;">[Stage 1 Guard]</span></span>
+                {% if validation_report.status_blur == 'PENDING' %}
+                    <span class="check-value check-pending-text">Not reached</span>
+                {% elif validation_report.status_blur == 'WARNING' %}
+                    <span class="check-value check-warn-text">{{ validation_report.blur_status }}</span>
+                {% elif validation_report.status_blur == 'FAIL' %}
+                    <span class="check-value check-fail-text">{{ validation_report.blur_status }}</span>
+                {% else %}
+                    <span class="check-value">{{ validation_report.blur_status }}</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Row 4: Soil Color Analysis -->
+        <div class="check-row {% if validation_report.status_color == 'WARNING' %}check-row-warn{% elif validation_report.status_color == 'FAIL' %}check-row-fail{% endif %}">
+            {% if validation_report.status_color == 'PASS' %}
+                <span class="check-icon check-pass">&#10003;</span>
+            {% elif validation_report.status_color == 'WARNING' %}
+                <span class="check-icon check-warn">&#9888;</span>
+            {% elif validation_report.status_color == 'FAIL' %}
+                <span class="check-icon check-fail">&#10007;</span>
+            {% else %}
+                <span class="check-icon check-pending">&#8212;</span>
+            {% endif %}
+            <div class="check-content">
+                <span class="check-label">Soil Color Analysis <span style="font-weight:normal;font-size:13px;color:#777;">[Stage 1 Guard | Scoring: 40%]</span></span>
+                {% if validation_report.status_color == 'PENDING' %}
+                    <span class="check-value check-pending-text">Not reached</span>
+                {% elif validation_report.status_color == 'WARNING' %}
+                    <span class="check-value check-warn-text">{{ validation_report.earth_status }}</span>
+                {% elif validation_report.status_color == 'FAIL' %}
+                    <span class="check-value check-fail-text">{{ validation_report.earth_status }}</span>
+                {% else %}
+                    <span class="check-value">{{ validation_report.earth_status }}</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Row 5: Texture / Line Check -->
+        <div class="check-row {% if validation_report.status_lines == 'WARNING' %}check-row-warn{% elif validation_report.status_lines == 'FAIL' %}check-row-fail{% endif %}">
+            {% if validation_report.status_lines == 'PASS' %}
+                <span class="check-icon check-pass">&#10003;</span>
+            {% elif validation_report.status_lines == 'WARNING' %}
+                <span class="check-icon check-warn">&#9888;</span>
+            {% elif validation_report.status_lines == 'FAIL' %}
+                <span class="check-icon check-fail">&#10007;</span>
+            {% else %}
+                <span class="check-icon check-pending">&#8212;</span>
+            {% endif %}
+            <div class="check-content">
+                <span class="check-label">Structural Line / Texture Check <span style="font-weight:normal;font-size:13px;color:#777;">[Stage 1 Guard]</span></span>
+                {% if validation_report.status_lines == 'PENDING' %}
+                    <span class="check-value check-pending-text">Not reached</span>
+                {% elif validation_report.status_lines == 'WARNING' %}
+                    <span class="check-value check-warn-text">{{ validation_report.hough_status }}</span>
+                {% elif validation_report.status_lines == 'FAIL' %}
+                    <span class="check-value check-fail-text">{{ validation_report.hough_status }}</span>
+                {% else %}
+                    <span class="check-value">{{ validation_report.hough_status }}</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Row 6: ImageNet Non-Soil Filter -->
+        <div class="check-row {% if validation_report.status_imagenet == 'WARNING' %}check-row-warn{% elif validation_report.status_imagenet == 'FAIL' %}check-row-fail{% endif %}">
+            {% if validation_report.status_imagenet == 'PASS' %}
+                <span class="check-icon check-pass">&#10003;</span>
+            {% elif validation_report.status_imagenet == 'WARNING' %}
+                <span class="check-icon check-warn">&#9888;</span>
+            {% elif validation_report.status_imagenet == 'FAIL' %}
+                <span class="check-icon check-fail">&#10007;</span>
+            {% else %}
+                <span class="check-icon check-pending">&#8212;</span>
+            {% endif %}
+            <div class="check-content">
+                <span class="check-label">ImageNet Non-Soil Filter <span style="font-weight:normal;font-size:13px;color:#777;">[Stage 1 Guard]</span></span>
+                {% if validation_report.status_imagenet == 'PENDING' %}
+                    <span class="check-value check-pending-text">Not reached</span>
+                {% elif validation_report.status_imagenet == 'WARNING' %}
+                    <span class="check-value check-warn-text">Possible non-soil elements in background</span>
+                {% elif validation_report.status_imagenet == 'FAIL' %}
+                    <span class="check-value check-fail-text">Non-soil surface detected (concrete / tile / wood / etc.)</span>
+                {% else %}
+                    <span class="check-value">No non-soil objects detected</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Row 7: Deep Feature Similarity -->
+        <div class="check-row {% if validation_report.status_similarity == 'WARNING' %}check-row-warn{% elif validation_report.status_similarity == 'FAIL' %}check-row-fail{% endif %}">
+            {% if validation_report.status_similarity == 'PASS' %}
+                <span class="check-icon check-pass">&#10003;</span>
+            {% elif validation_report.status_similarity == 'WARNING' %}
+                <span class="check-icon check-warn">&#9888;</span>
+            {% elif validation_report.status_similarity == 'FAIL' %}
+                <span class="check-icon check-fail">&#10007;</span>
+            {% else %}
+                <span class="check-icon check-pending">&#8212;</span>
+            {% endif %}
+            <div class="check-content">
+                <span class="check-label">Deep Feature Similarity <span style="font-weight:normal;font-size:13px;color:#777;">[Stage 2 | Weight: 35% | Contrib: {{ validation_report.similarity_contrib }}%]</span></span>
+                {% if validation_report.status_similarity == 'PENDING' %}
+                    <span class="check-value check-pending-text">Not reached</span>
+                {% elif validation_report.status_similarity == 'WARNING' %}
+                    <span class="check-value check-warn-text">{{ validation_report.similarity_status }}</span>
+                {% elif validation_report.status_similarity == 'FAIL' %}
+                    <span class="check-value check-fail-text">{{ validation_report.similarity_status }}</span>
+                {% else %}
+                    <span class="check-value">{{ validation_report.similarity_status }}</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Row 8: CNN Confidence Score -->
+        <div class="check-row {% if validation_report.status_confidence == 'WARNING' %}check-row-warn{% elif validation_report.status_confidence == 'FAIL' %}check-row-fail{% endif %}">
+            {% if validation_report.status_confidence == 'PASS' %}
+                <span class="check-icon check-pass">&#10003;</span>
+            {% elif validation_report.status_confidence == 'WARNING' %}
+                <span class="check-icon check-warn">&#9888;</span>
+            {% elif validation_report.status_confidence == 'FAIL' %}
+                <span class="check-icon check-fail">&#10007;</span>
+            {% else %}
+                <span class="check-icon check-pending">&#8212;</span>
+            {% endif %}
+            <div class="check-content">
+                <span class="check-label">CNN Confidence Score <span style="font-weight:normal;font-size:13px;color:#777;">[Stage 2 | Weight: 25% | Contrib: {{ validation_report.confidence_contrib }}%]</span></span>
+                {% if validation_report.status_confidence == 'PENDING' %}
+                    <span class="check-value check-pending-text">Not reached</span>
+                {% elif validation_report.status_confidence == 'WARNING' %}
+                    <span class="check-value check-warn-text">{{ validation_report.confidence }}% (below 75% target)</span>
+                {% elif validation_report.status_confidence == 'FAIL' %}
+                    <span class="check-value check-fail-text">{{ validation_report.confidence }}% (low confidence)</span>
+                {% else %}
+                    <span class="check-value">{{ validation_report.confidence }}%</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Row 9: Soil Classification -->
+        <div class="check-row {% if validation_report.status_soil == 'WARNING' %}check-row-warn{% elif validation_report.status_soil == 'FAIL' %}check-row-fail{% endif %}">
+            {% if validation_report.status_soil == 'PASS' %}
+                <span class="check-icon check-pass">&#10003;</span>
+            {% elif validation_report.status_soil == 'WARNING' %}
+                <span class="check-icon check-warn">&#9888;</span>
+            {% elif validation_report.status_soil == 'FAIL' %}
+                <span class="check-icon check-fail">&#10007;</span>
+            {% else %}
+                <span class="check-icon check-pending">&#8212;</span>
+            {% endif %}
+            <div class="check-content">
+                <span class="check-label">Soil Classification</span>
+                {% if validation_report.soil_type %}
+                    {% if validation_report.status_soil == 'FAIL' %}
+                        <span class="check-value check-fail-text">{{ validation_report.soil_type }} (low confidence)</span>
+                    {% elif validation_report.status_soil == 'WARNING' %}
+                        <span class="check-value check-warn-text">{{ validation_report.soil_type }} (uncertain)</span>
+                    {% else %}
+                        <span class="check-value">{{ validation_report.soil_type }}</span>
+                    {% endif %}
+                {% else %}
+                    <span class="check-value check-pending-text">Not reached</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Row 10: Overall Validation Score -->
+        <div class="check-row {% if not validation_passed %}check-row-fail{% endif %}" style="border-top: 2px dashed #ccc; padding-top: 15px; margin-top: 15px;">
+            {% if validation_passed %}
+                <span class="check-icon check-pass">&#10003;</span>
+            {% else %}
+                <span class="check-icon check-fail">&#10007;</span>
+            {% endif %}
+            <div class="check-content" style="flex-grow: 1;">
+                <span class="check-label" style="font-size:16px;font-weight:bold;color:{% if validation_passed %}#2E7D32{% else %}#C62828{% endif %};">Overall Validation Score</span>
+                <span class="check-value" style="font-size:15px;font-weight:bold;">
+                    {{ validation_report.overall_score }}% &nbsp;
+                    <span style="font-weight:normal;font-size:13px;color:#555;">
+                        (Required: &ge; 60% | Decision: <b style="color:{% if validation_passed %}#2E7D32{% else %}#C62828{% endif %};">{% if validation_passed %}VALID SOIL IMAGE{% else %}REJECTED{% endif %}</b>)
+                    </span>
+                </span>
+            </div>
+        </div>
+
+    </div><!-- /validation-report -->
+
+</div><!-- /validation-report-section -->
+
+
+<!-- ============================================================
+     DOWNSTREAM SECTIONS -- only shown when validation passes
+============================================================ -->
+
+{% if validation_passed %}
+
+
+<!-- CNN Soil Prediction -->
+<div class="section">
+
+    <h2>🧠 CNN Soil Prediction</h2>
+
+    <p class="info"><b>Detected Soil Type</b></p>
+    <span class="badge">{{ cnn_soil }}</span>
+
+    <br><br>
+
+    <p class="info"><b>Mapped Soil Type</b></p>
+    <span class="badge">{{ mapped_soil.upper() }}</span>
+
+    <br><br>
+
+    <p class="info"><b>Prediction Confidence</b></p>
+    <div class="progress">
+        <div class="progress-bar" style="width:{{ confidence }}%;">
+            {{ confidence }} %
+        </div>
+    </div>
+
+    <br>
+    <p class="info"><b>Top-3 Predictions</b></p>
+    <div class="top-predictions-list">
+        {% for pred in validation_report.top3 %}
+            <div style="display: flex; justify-content: space-between; margin-bottom: 8px; padding: 8px 14px; background: #f9fff8; border-radius: 8px; border: 1px solid #dff5e1;">
+                <span style="font-weight: 500; color: #2E7D32;">{{ pred.rank }}. {{ pred.name }}</span>
+                <span style="font-weight: bold; color: #43A047;">{{ pred.confidence }}%</span>
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+
+<!-- GPS Information -->
+<div class="section">
+
+    <h2>📍 GPS Information</h2>
+
+    <p class="info"><b>Location</b><br>{{ location }}</p>
+    <p class="info"><b>Latitude</b><br>{{ latitude }}</p>
+    <p class="info"><b>Longitude</b><br>{{ longitude }}</p>
+
+    {% if latitude != "Unknown" and longitude != "Unknown" %}
+    <a class="map-btn" target="_blank"
+       href="https://www.google.com/maps?q={{ latitude }},{{ longitude }}">
+        🗺 Open in Google Maps
+    </a>
+    {% endif %}
+
+</div>
+
+
+<!-- AI Crop Recommendation -->
+<div class="section">
+
+    <h2>🤖 AI Crop Recommendation</h2>
+
+    <div class="recommendation-box">
+        <pre>{{ result }}</pre>
+    </div>
+
+</div>
+
+
+{% endif %}
+<!-- /validation_passed -->
+
+
+</div><!-- /result-box -->
+
+
+<div class="center-btn">
+    <a href="/">
+        <button>🔄 Analyze Another Image</button>
+    </a>
+</div>
+
+</div><!-- /container -->
+
+</body>
+</html>

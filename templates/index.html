@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GeoCrop AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="background-overlay"></div>
+
+<div class="main-container">
+
+<div class="glass-card">
+
+<div class="logo">
+
+🌱
+
+</div>
+
+<h1>GeoCrop AI</h1>
+
+<p class="subtitle">
+
+AI Powered GPS Assisted Weather & Soil Based Crop Recommendation System
+
+</p>
+
+<form
+method="POST"
+enctype="multipart/form-data"
+id="uploadForm">
+
+<!-- Upload Area -->
+
+<div class="upload-container">
+
+<label
+for="soil_image"
+class="upload-label">
+
+<div
+class="upload-box">
+
+<div class="upload-icon">
+
+📷
+
+</div>
+
+<h2>
+
+Upload GPS Tagged Soil Image
+
+</h2>
+
+<p>
+
+Click to browse your image
+
+</p>
+
+<p class="small">
+
+(JPG, PNG, JPEG)
+
+</p>
+
+</div>
+
+</label>
+
+<input
+type="file"
+id="soil_image"
+name="soil_image"
+accept="image/*"
+hidden
+required>
+
+</div>
+
+<!-- Preview -->
+
+<div
+id="previewContainer"
+style="display:none;">
+
+<img
+id="previewImage">
+
+<p
+id="fileName">
+
+</p>
+
+</div>
+
+<!-- Crop -->
+
+<div class="input-group">
+
+<label>
+
+🌾 Select Crop
+
+</label>
+
+<select
+name="crop"
+required>
+
+<option value="">Choose Crop</option>
+
+<option value="rice">Rice</option>
+
+<option value="wheat">Wheat</option>
+
+<option value="maize">Maize</option>
+
+<option value="cotton">Cotton</option>
+
+<option value="groundnut">Groundnut</option>
+
+<option value="soybean">Soybean</option>
+
+<option value="millet">Millet</option>
+
+<option value="sorghum">Sorghum</option>
+
+<option value="sunflower">Sunflower</option>
+
+<option value="mustard">Mustard</option>
+
+<option value="potato">Potato</option>
+
+<option value="tomato">Tomato</option>
+
+<option value="onion">Onion</option>
+
+<option value="banana">Banana</option>
+
+<option value="mango">Mango</option>
+
+<option value="sugarcane">Sugarcane</option>
+
+</select>
+
+</div>
+
+<!-- Water -->
+
+<div class="input-group">
+
+<label>
+
+💧 Irrigation Available
+
+</label>
+
+<div class="radio-group">
+
+<label class="radio-card">
+
+<input
+type="radio"
+name="water"
+value="yes"
+checked>
+
+<span>
+
+✅ Yes
+
+</span>
+
+</label>
+
+<label class="radio-card">
+
+<input
+type="radio"
+name="water"
+value="no">
+
+<span>
+
+❌ No
+
+</span>
+
+</label>
+
+</div>
+
+</div>
+
+<button
+type="submit"
+class="analyze-btn">
+
+🚀 Analyze Crop
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+<!-- Loading -->
+
+<div
+id="loadingScreen">
+
+<div class="loader"></div>
+
+<h2>
+
+Analyzing Soil...
+
+</h2>
+
+<p>
+
+Please wait while GeoCrop AI processes your image.
+
+</p>
+
+</div>
+
+<script>
+
+const input=document.getElementById("soil_image");
+
+const preview=document.getElementById("previewImage");
+
+const previewContainer=document.getElementById("previewContainer");
+
+const fileName=document.getElementById("fileName");
+
+input.addEventListener("change",function(){
+
+const file=this.files[0];
+
+if(file){
+
+preview.src=URL.createObjectURL(file);
+
+previewContainer.style.display="block";
+
+fileName.innerHTML=file.name;
+
+}
+
+});
+
+document.getElementById("uploadForm").addEventListener("submit",function(){
+
+document.getElementById("loadingScreen").style.display="flex";
+
+});
+
+</script>
+
+</body>
+
+</html>

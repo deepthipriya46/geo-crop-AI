@@ -1,0 +1,49 @@
+============================================================
+  GeoCropAI -- Dataset Quality Report
+  Generated: 2026-07-07 22:07:04
+============================================================
+
+DATASET OVERVIEW
+----------------------------------------
+Total Valid Images   : 1283
+Total Corrupted      : 0
+Duplicate Images     : 49
+Number of Classes    : 7
+Imbalance Ratio      : 4.12  (max_class / min_class)
+
+IMAGES PER CLASS
+----------------------------------------
+Alluvial_Soil         146  (11.4%)  #####
+Arid_Soil             284  (22.1%)  ###########
+Black_Soil            255  (19.9%)  #########
+Laterite_Soil         219  (17.1%)  ########
+Mountain_Soil         201  (15.7%)  #######
+Red_Soil              109  (8.5%)  ####
+Yellow_Soil            69  (5.4%)  ##
+
+CORRUPTED IMAGES
+----------------------------------------
+  None detected.
+
+IMAGE SIZE DISTRIBUTION
+----------------------------------------
+  Width  : min=140  max=3888  mean=722
+  Height : min=101  max=2592  mean=498
+
+SUGGESTED IMPROVEMENTS
+----------------------------------------
+  * Class imbalance detected (ratio=4.12). Apply class_weight during training.
+  * Classes with < 100 images: Yellow_Soil. Consider collecting more data or augmenting heavily.
+  * 49 duplicate image(s) detected. Remove duplicates to avoid data leakage.
+
+CLASS NAMES (training order -- used in soil_classifier.py)
+----------------------------------------
+  [0] Alluvial_Soil
+  [1] Arid_Soil
+  [2] Black_Soil
+  [3] Laterite_Soil
+  [4] Mountain_Soil
+  [5] Red_Soil
+  [6] Yellow_Soil
+
+============================================================

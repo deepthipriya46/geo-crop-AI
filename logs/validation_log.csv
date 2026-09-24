@@ -1,0 +1,45 @@
+timestamp,filename,validation_status,blur_score,earth_tone_ratio_pct,cnn_confidence_pct,predicted_soil_type,failure_reason
+2026-07-07 16:23:26,wall.jpeg,REJECTED,185.14,3.4,0.0,N/A,Non-soil image (HSV analysis failed)
+2026-07-07 16:25:12,WhatsApp Image 2026-07-07 at 4.20.04 PM (1).jpeg,VALID_SOIL,232.65,47.1,95.09,Alluvial Soil,
+2026-07-07 16:26:00,WhatsApp Image 2026-05-15 at 9.59.40 AM (1).jpeg,VALID_SOIL,1411.14,46.7,95.61,Alluvial Soil,
+2026-07-07 16:26:54,WhatsApp Image 2026-07-07 at 4.20.03 PM.jpeg,VALID_SOIL,302.35,80.8,99.67,Alluvial Soil,
+2026-07-07 17:01:45,WhatsApp Image 2026-07-07 at 4.20.04 PM (1).jpeg,VALID_SOIL,232.65,47.1,95.09,Alluvial Soil,
+2026-07-07 17:03:19,WhatsApp Image 2026-05-15 at 9.59.39 AM.jpeg,VALID_SOIL,4619.28,50.3,99.97,Black Soil,
+2026-07-07 17:03:42,soil_1.jpeg,VALID_SOIL,1994.64,56.1,99.97,Black Soil,
+2026-07-07 17:05:25,WhatsApp Image 2026-07-02 at 1.19.26 PM.jpeg,VALID_SOIL,621.86,38.8,99.97,Black Soil,
+2026-07-07 17:05:48,wall.jpeg,REJECTED,185.14,3.4,0.0,N/A,Non-soil image (HSV analysis failed)
+2026-07-07 17:06:11,WhatsApp Image 2026-07-02 at 1.19.26 PM.jpeg,VALID_SOIL,621.86,38.8,99.97,Black Soil,
+2026-07-07 17:24:26,WhatsApp Image 2026-07-02 at 1.19.26 PM.jpeg,VALID_SOIL,621.86,38.8,99.97,Black Soil,
+2026-07-07 17:24:57,spotify_neo4j.png,REJECTED,2062.87,0.0,0.0,N/A,Non-soil image (HSV analysis failed)
+2026-07-07 17:25:25,large-a-woman-watching-the-moon.webp,REJECTED,16.06,0.0,0.0,N/A,Image is too blurry
+2026-07-07 17:25:50,csp-1.png,REJECTED,661.14,0.0,0.0,N/A,Non-soil image (HSV analysis failed)
+2026-07-07 17:26:16,WhatsApp Image 2026-07-07 at 4.20.04 PM (1).jpeg,VALID_SOIL,232.65,47.1,99.97,Black Soil,
+2026-07-07 17:38:28,WhatsApp Image 2026-07-02 at 1.19.26 PM.jpeg,REJECTED,621.86,38.8,35,0.0,0.0,N/A,Grout/line pattern detected
+2026-07-07 17:38:44,WhatsApp Image 2026-07-02 at 1.19.26 PM.jpeg,REJECTED,621.86,38.8,35,0.0,0.0,N/A,Grout/line pattern detected
+2026-07-07 17:49:37,WhatsApp Image 2026-07-07 at 4.20.04 PM (1).jpeg,REJECTED,232.65,47.1,46,0.0,0.0,N/A,Grout/line pattern detected
+2026-07-07 17:50:05,soil6.jpeg,REJECTED,2569.72,52.7,160,0.0,0.0,N/A,Grout/line pattern detected
+2026-07-07 17:51:31,soil_5.jpeg,REJECTED,1449.96,35.9,274,0.0,0.0,N/A,Grout/line pattern detected
+2026-07-07 17:57:33,soil6.jpeg,REJECTED,2569.72,52.7,1,0.7384,0.0,N/A,Cosine similarity too low
+2026-07-07 17:58:12,WhatsApp Image 2026-07-07 at 4.20.04 PM (1).jpeg,REJECTED,232.65,47.1,1,0.7748,0.0,N/A,Cosine similarity too low
+2026-07-07 18:13:04,soil6.jpeg,VALID_SOIL,95,2569.72,52.7,1,0.6556,99.94,Alluvial Soil,
+2026-07-07 18:40:49,WhatsApp Image 2026-07-07 at 4.20.04 PM (1).jpeg,VALID_SOIL,93,232.65,47.1,1,0.4699,88.84,Alluvial Soil,
+2026-07-07 18:41:19,soil6.jpeg,VALID_SOIL,95,2569.72,52.7,1,0.6556,99.94,Alluvial Soil,
+2026-07-07 18:42:18,soil6.jpeg,VALID_SOIL,95,2569.72,52.7,1,0.6556,99.94,Alluvial Soil,
+2026-07-07 18:50:14,WhatsApp Image 2026-07-02 at 1.19.26 PM.jpeg,VALID_SOIL,83,621.86,38.8,2,0.4892,95.12,Alluvial Soil,
+2026-07-07 18:55:16,wall.jpeg,REJECTED,68,185.14,3.4,3,0.5219,80.66,Alluvial Soil,Obvious non-soil: colors out of spectrum
+2026-07-07 19:41:01,WhatsApp Image 2026-07-02 at 1.19.26 PM.jpeg,VALID_SOIL,83,621.86,38.8,2,0.4892,95.12,Alluvial Soil,
+2026-07-07 20:04:44,Untitled design.png,VALID_SOIL,94,11316.77,88.8,0,0.6311,97.08,Alluvial Soil,
+2026-07-07 20:26:38,WhatsApp Image 2026-07-02 at 1.19.26 PM.jpeg,VALID_SOIL,83,621.86,38.8,2,0.4892,95.12,Alluvial Soil,
+2026-07-07 20:39:00,WhatsApp Image 2026-07-02 at 1.19.26 PM.jpeg,REJECTED,0,621.86,22.2,0,21.9,0.018,0.0,0.0,,Stage 1 guard: gray surface (sat=21.9)
+2026-07-07 20:39:44,WhatsApp Image 2026-07-07 at 4.20.04 PM (1).jpeg,VALID_SOIL,85,232.65,44.3,0,103.7,0.0221,0.4699,88.84,Alluvial Soil,
+2026-07-07 20:40:35,soil_4.jpeg,REJECTED,49,1889.43,7.9,0,39.5,0.0269,0.5843,74.05,Alluvial Soil,Stage 2 score 49% < 60%
+2026-07-07 20:41:05,WhatsApp Image 2026-05-15 at 9.59.39 AM.jpeg,VALID_SOIL,90,4619.28,36.8,0,26.2,0.0152,0.595,98.4,Alluvial Soil,
+2026-07-07 20:43:43,soil_1.jpeg,VALID_SOIL,94,1994.64,41.6,0,33.6,0.0193,0.6811,96.18,Alluvial Soil,
+2026-07-07 20:54:21,WhatsApp Image 2026-07-07 at 4.20.04 PM (1).jpeg,VALID_SOIL,85,232.65,44.3,0,103.7,0.0221,0.4699,88.84,Alluvial Soil,
+2026-07-07 20:55:11,WhatsApp Image 2026-05-15 at 9.59.40 AM (1).jpeg,VALID_SOIL,89,1411.14,40.0,0,61.4,0.038,0.556,99.74,Alluvial Soil,
+2026-07-07 21:03:13,WhatsApp Image 2026-07-07 at 4.20.04 PM (1).jpeg,VALID_SOIL,85,232.65,44.3,0,103.7,0.0221,0.4699,88.84,Alluvial Soil,
+2026-07-07 21:19:25,WhatsApp Image 2026-07-07 at 4.20.04 PM (1).jpeg,VALID_SOIL,92,232.65,44.3,0,103.7,0.0221,0.6309,84.88,Alluvial Soil,
+2026-07-07 22:32:16,WhatsApp Image 2026-07-07 at 4.20.04 PM (1).jpeg,VALID_SOIL,88,232.65,44.3,0,103.7,0.0221,0.5347,84.88,Alluvial Soil,
+2026-07-07 22:40:28,WhatsApp Image 2026-07-07 at 4.20.04 PM (1).jpeg,VALID_SOIL,75,232.65,44.3,0,103.7,0.0221,0.5581,34.69,Alluvial Soil,
+2026-07-07 22:41:10,WhatsApp Image 2026-07-02 at 1.19.26 PM.jpeg,REJECTED,0,621.86,22.2,0,21.9,0.018,0.0,0.0,,Stage 1 guard: gray surface (sat=21.9)
+2026-08-04 21:28:16,soil6.jpeg,VALID_SOIL,92,2569.72,35.8,1,28.9,0.0805,0.6588,73.31,Alluvial Soil,
