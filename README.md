@@ -2,31 +2,29 @@
 
 
 
-GeoCropAI is an AI-powered multi-agent framework for intelligent crop recommendation that combines CNN-based soil classification with real-time environmental analysis. The system analyzes soil images, retrieves live weather information based on GPS location, and evaluates environmental conditions to recommend suitable crops using machine learning (XGBoost).
+GeoCropAI is an AI-powered multi-agent framework for intelligent crop recommendation that combines CNN-based soil classification with real-time environmental analysis. The system analyzes soil images, retrieves live weather information based on GPS location, and evaluates environmental conditions to recommend suitable crops using machine learning.
 
 
 
 The framework integrates multiple intelligent agents to perform soil analysis, weather assessment, crop suitability prediction, risk evaluation, and recommendation generation, providing farmers with accurate, data-driven agricultural insights.
 
+Key Features
 
+🌱 CNN-based Soil Classification (MobileNetV2)
 
-\## Key Features
+🌦️ Real-time Weather Data Integration
 
-\- 🌱 CNN-based Soil Classification (MobileNetV2)
+📍 GPS-based Location Detection
 
-\- 🌦️ Real-time Weather Data Integration
+🤖 Multi-Agent Decision Framework
 
-\- 📍 GPS-based Location Detection
+📊 XGBoost-based Crop Suitability Prediction
 
-\- 🤖 Multi-Agent Decision Framework
+🌾 Intelligent Crop Recommendation
 
-\- 📊 XGBoost-based Crop Suitability Prediction
+📈 Model Evaluation and Visualization
 
-\- 🌾 Intelligent Crop Recommendation
-
-\- 📈 Model Evaluation and Visualization
-
-\- 🌍 Environmental Intelligence for Precision Agriculture
+🌍 Environmental Intelligence for Precision Agriculture
 
 
 
